@@ -2,6 +2,8 @@
 
 A full-stack music intelligence application that segments Spotify playlists by mood using machine learning and corrects classifications using a hybrid LLM pipeline.
 
+![Moodify](assets/Moodify.jpeg)
+
 ---
 
 ## What it does
@@ -13,6 +15,8 @@ A two-phase LLM correction pipeline improves classification accuracy beyond what
 ---
 
 ## Architecture
+
+![Working of Phases](assets/Working%20of%20Phases.jpeg)
 
 ```
 Spotify Playlist CSV
@@ -42,16 +46,29 @@ Streamlit Dashboard + FastAPI Backend
 - Probabilistic assignments mean a track can belong to multiple mood clusters with varying confidence scores
 
 ### 2. Mood Transition Journey — `mood_transition.py`
+
+![Mood Transition](assets/Mood%20Transition.jpeg)
+
 - Maps each mood to a 2D emotional coordinate space using **Valence × Energy** axes
 - Uses `np.linspace` to linearly interpolate a path between two mood states
 - At each waypoint along the path, the nearest matching track is selected — producing a playlist that transitions smoothly across emotional states rather than jumping abruptly
 
+![Generated Playlist](assets/Generated%20Playlist.jpeg)
+
 ### 3. Two-Phase LLM Correction Pipeline
+
+![LLM Mood Corrections](assets/LLM%20Mood%20Corrections.jpeg)
+
 - **Phase 1:** Gemini API performs fast batch mood classification using song name, artist, and genre metadata
 - **Phase 2:** For tracks with low classification confidence, lyrics are fetched via the Genius API and fed back into the classifier for re-evaluation
 - This hybrid approach catches misclassifications that audio features alone miss — for example, a high-energy track with melancholic lyrics
 
 ### 4. Streamlit Analytics Dashboard — `dashboard.py`
+
+![AI Pipeline Dashboard](assets/AI%20Pipeline%20Dashboard.jpeg)
+
+![Mood Distribution and AI Confidence](assets/Mood%20Distribution%20and%20AI%20confidence.jpeg)
+
 - **t-SNE visualisation** of the full music universe — shows how tracks cluster in 2D emotional space
 - Mood distribution charts across the playlist
 - AI confidence breakdown per track
@@ -116,6 +133,6 @@ These two dimensions are the strongest predictors of perceived mood in music psy
 
 ## Author
 
-**Tarush Sharma**  
-PGDM — IMI Bhubaneswar  
+**Tarush Sharma**
+PGDM — IMI Bhubaneswar
 [linkedin.com/in/tarush-sharma-94a955314](https://www.linkedin.com/in/tarush-sharma-94a955314/) · [tarush-101.github.io](https://tarush-101.github.io)
